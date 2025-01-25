@@ -1,0 +1,2 @@
+# lowvim
+neovim configuration
