@@ -27,7 +27,7 @@ return {
         end, desc = "s"}
       },
       config = function()
-        lowvim.oad_config("mini_file")
+        lowvim.load_config("mini_file")
       end,
     },
     {
