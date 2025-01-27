@@ -1,3 +1,4 @@
 # .gitignore
+lazy-lock.json
 lua.txt
 # test.txt
