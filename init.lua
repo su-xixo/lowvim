@@ -3,6 +3,7 @@ vim.g.maplocalleader = ' '
 
 -- gloval utils variable
 _G.lowvim = require("lowvim.utils")
+_G.language = require('lowvim.plugins.config.languages')
 
 require 'lowvim.core.options'
 require 'lowvim.core.keymaps'
