@@ -13,11 +13,23 @@ return {
             lowvim.load_config("treesitter").setup()
         end,
     },
-    -- lsp
-    {},
-
     -- mason
-    {},
-    -- mason tool installer
+    {
+        "williamboman/mason.nvim",
+        dependencies = {
+            {
+                "williamboman/mason-lspconfig.nvim",
+                config = function() lowvim.load_config("mason.mason_lspconfig").setup() end,
+            },
+            {
+                "WhoIsSethDaniel/mason-tool-installer.nvim",
+                config = function() lowvim.load_config("mason.mason_tool_installer").setup() end,
+            },
+        },
+        config = function()
+            lowvim.load_config("mason").setup()
+        end,
+    },
+    -- lsp
     {},
 }
