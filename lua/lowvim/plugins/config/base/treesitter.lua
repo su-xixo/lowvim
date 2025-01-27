@@ -16,7 +16,7 @@ local context_option = {
     on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
 }
 local options = {
-    ensure_installed = lowvim.extract("treesitter",language),
+    ensure_installed = lowvim.extract("treesitter",languages),
     sync_install = false,
     auto_install = false,
     ignore_install = {},
