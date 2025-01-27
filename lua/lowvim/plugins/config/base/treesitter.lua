@@ -16,14 +16,7 @@ local context_option = {
     on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
 }
 local options = {
-    ensure_installed = vim.tbl_values(vim.tbl_flatten(vim.tbl_map(
-        function(server)
-            return server.treesitter
-        end,
-        vim.tbl_filter(function(server)
-            return server.treesitter
-        end, require('lowvim.plugins.config.languages'))
-    ))),
+    ensure_installed = lowvim.extract("treesitter",language),
     sync_install = false,
     auto_install = false,
     ignore_install = {},
