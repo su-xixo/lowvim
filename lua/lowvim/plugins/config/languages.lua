@@ -38,7 +38,13 @@ return {
     {
         -- python
         treesitter = { 'python' },
-        mason = { 'pylance', 'debugpy' },
+        -- mason = { 'pylance', 'debugpy' },
+        mason = {
+            -- pylance is external entry need client registry to install
+            linter = {'pylance'},
+            formatter = {},
+            debugger = {'debugpy'}
+        },
         lsp = { 'pylance' },
         settings = {
             -- See: https://github.com/microsoft/pyright/blob/main/docs/settings.md
