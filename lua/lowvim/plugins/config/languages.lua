@@ -41,11 +41,11 @@ return {
         -- mason = { 'pylance', 'debugpy' },
         mason = {
             -- pylance is external entry need client registry to install
-            linter = {'pylance'},
+            linter = {},
             formatter = {},
             debugger = {'debugpy'}
         },
-        lsp = { 'pylance' },
+        lsp = {},
         settings = {
             -- See: https://github.com/microsoft/pyright/blob/main/docs/settings.md
             -- See: https://code.visualstudio.com/docs/python/settings-reference

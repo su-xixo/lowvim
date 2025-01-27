@@ -52,4 +52,4 @@ local extract = function(object, table)
 end
 
 
-print(vim.inspect(extract("mason", languages)))
+print(vim.inspect(extract("lsp", languages)))
