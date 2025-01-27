@@ -10,7 +10,7 @@ return {
             "nvim-treesitter/nvim-treesitter-context",
         },
         config = function()
-            lowvim.load_config("treesitter").setup()
+            lowvim.load_config("base.treesitter").setup()
         end,
     },
     -- mason
