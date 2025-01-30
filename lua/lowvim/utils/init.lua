@@ -4,8 +4,8 @@ M.load_config = function(config_name)
     return require("lowvim.plugins.config."..config_name)
 end
 
-M.map = function(mode, lhs, rhs, opts)
-    opts = opts or {}
+M.map = function(mode, lhs, rhs, arg)
+    local opts = {}
     -- Default options
     local default_opts = {
         noremap = true,
@@ -13,12 +13,17 @@ M.map = function(mode, lhs, rhs, opts)
         expr = opts.expr or false,
         desc = opts.desc or nil, -- default no description
     }
-
+    if type(arg) == "string" then
+        opts.desc = arg
+    elseif type(arg) == "table" then
+        opts = arg
+    end
     local final_opts = vim.tbl_deep_extend('force',default_opts, opts)
     vim.keymap.set(mode, lhs, rhs, final_opts)
 
     -- example
     -- map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" }) 
+    -- map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", Toggle file explorer") 
 end
 
 M.extract = function(object, table)
