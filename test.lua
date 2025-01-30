@@ -5,7 +5,7 @@
 --     { name = "server4", treesitter = { "javascript", "typescript" } },
 -- }
 
-local languages = require("lowvim.plugins.config.languages")
+local languages = require('lowvim.plugins.config.languages')
 -- local result = vim.tbl_values(vim.tbl_flatten(vim.tbl_map(
 --     function(s) return s.treesitter end,
 --     vim.tbl_filter(function(s) return s.treesitter end, languages)
@@ -32,17 +32,19 @@ local extract = function(object, table)
     local object = object or ''
     -- print(object, table)
     -- filters out only truthy values
-    local filter = vim.tbl_filter(function(item) return item[object] end,table)
+    local filter = vim.tbl_filter(function(item)
+        return item[object]
+    end, table)
     -- map: apply function to each value
     local map = vim.tbl_map(function(item)
         local item = item[object] or {}
         if vim.islist(item) then
-            return item          
+            return item
         else
             -- table.insert(item, vim.tbl_values(item))
             return vim.tbl_values(item)
         end
-    end,filter)
+    end, filter)
     -- flatten: single table from nested table
     local flatten = vim.tbl_flatten(map)
 
@@ -51,48 +53,123 @@ local extract = function(object, table)
     return values
 end
 
+local test_languages = {
+    {
+        ft = 'javascript',
+        treesitter = { 'javascript' },
+        tool = {
+            linter = { 'eslint' },
+            formatter = { 'prettier' },
+            dap = {},
+        },
+        lsp = { 'tsserver' },
+    },
+    {
+        ft = 'go',
+        treesitter = { 'go' },
+        tool = {
+            linter = {},
+            formatter = { 'gofmt', 'xxx' },
+            dap = {},
+        },
+        lsp = { 'gopls' },
+    },
+    {
+        ft = 'rust',
+        treesitter = { 'rust' },
+        tool = {
+            linter = {},
+            formatter = { 'zzz' },
+            dap = {},
+        },
+        lsp = { 'rust_analyzer' },
+    },
+    {
+        ft = 'rust',
+        treesitter = { 'json' },
+        tool = {
+            linter = {},
+            formatter = { 'zzzz' },
+            dap = {},
+        },
+        lsp = {},
+    },
+}
 
--- print(vim.inspect(extract("lsp", languages)))
+-- -- extract column
+-- local extract_column = function()
+--     local list = {}
+--     local filter = vim.tbl_filter(function(item)
+--         return item.ft and not vim.tbl_isempty(item.tool.formatter)
+--     end, test_languages)
 
+--     for _, item in ipairs(filter) do
+--         if type(item) == 'string' then
+--             return {item}
+--         end
+--         if not list[item.ft] then
+--             list[item.ft] = {}
+--         end
+--         vim.list_extend(list[item.ft], item.tool.formatter)
+--     end
 
-local keymap = function(mode, lhs, rhs, arg)
-    local opts = {}
-    -- Default options
-    local default_opts = {
-        noremap = true,
-        silent = opts.silent ~= false, -- default silent
-        expr = opts.expr or false,
-        desc = opts.desc or nil, -- default no description
-    }
+--     -- local map = vim.tbl_map(function(item)
+--     --     return {[item.ft] = item.tool.formatter}
+--     -- end, filter)
+--     -- local map = {}
+--     -- for i,item in ipairs(filter) do
+--     --     map[item.ft] = item.tool.formatter
+--     -- end
+--     -- print(vim.inspect(languages))
+--     -- print(vim.inspect(filter))
+--     -- print(vim.inspect(list))
+--     return list
+-- end
+-- -- python = { "isort", "black" },
+-- local exended_list = {
+--     a = {'a'},
+--     b = {'b', 'c'},
+-- }
 
-    if type(arg) == "string" then
-        opts.desc = arg
-    elseif type(arg) == "table" then
-        opts = arg
-    end
-    local final_opts = vim.tbl_deep_extend('force',default_opts, opts)
-    -- return final_opts
-    print(vim.inspect(arg))
-    print(vim.inspect(default_opts))
-    print(vim.inspect(opts))
-    print(vim.inspect(final_opts))
+-- print(vim.inspect(vim.tbl_deep_extend("force", exended_list, extract_column())))
+-- print(vim.inspect(extract("tool", languages)))
 
-    -- vim.keymap.set(mode, lhs, rhs, final_opts)
+-- local keymap = function(mode, lhs, rhs, arg)
+--     local opts = {}
+--     -- Default options
+--     local default_opts = {
+--         noremap = true,
+--         silent = opts.silent ~= false, -- default silent
+--         expr = opts.expr or false,
+--         desc = opts.desc or nil, -- default no description
+--     }
 
-    -- example
-    -- map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" }) 
-    -- map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", "Toggle file explorer") 
-end
-keymap("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", "XXXXXXXXXX")
--- keymap("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer", silent = false }) 
+--     if type(arg) == "string" then
+--         opts.desc = arg
+--     elseif type(arg) == "table" then
+--         opts = arg
+--     end
+--     local final_opts = vim.tbl_deep_extend('force',default_opts, opts)
+--     -- return final_opts
+--     print(vim.inspect(arg))
+--     print(vim.inspect(default_opts))
+--     print(vim.inspect(opts))
+--     print(vim.inspect(final_opts))
+
+--     -- vim.keymap.set(mode, lhs, rhs, final_opts)
+
+--     -- example
+--     -- map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
+--     -- map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", "Toggle file explorer")
+-- end
+-- keymap("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", "XXXXXXXXXX")
+-- keymap("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer", silent = false })
 -- print(vim.inspect(map()))
 -- print(vim.inspect(map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", "Toggle file explorer")))
 
-
-local function string_to_table(key, value)
-    return { [key] = value }
-end
-
+-- local function string_to_table(key, value)
+--     return { [key] = value }
+-- end
 
 -- local function map(mode, lhs, rhs, ...)
 --     local args = { ... }
@@ -119,3 +196,32 @@ end
 
 -- map("n", "<leader>e", ":NvimTreeToggle<CR>", "Toggle file explorer")
 -- map("n", "<leader>w", ":w<CR>", { silent = false, desc = "Save file" })
+
+local extract_formatter = function(lang)
+    local list = {}
+    local filter = vim.tbl_filter(function(item)
+        return item.ft and not vim.tbl_isempty(item.tool.formatter)
+    end, lang)
+
+    for _, item in ipairs(filter) do
+        if type(item) == 'string' then
+            return { item }
+        end
+        if not list[item.ft] then
+            list[item.ft] = {}
+        end
+        vim.list_extend(list[item.ft], item.tool.formatter)
+    end
+
+    return list
+end
+local extended_formatter_list = {}
+print(
+    vim.inspect(
+        vim.tbl_deep_extend(
+            'force',
+            extract_formatter(languages),
+            extended_formatter_list
+        )
+    )
+)

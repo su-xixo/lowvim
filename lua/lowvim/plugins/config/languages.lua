@@ -1,6 +1,7 @@
 return {
     {
         -- python
+        ft = "python",
         treesitter = { 'python' },
         -- tool = { 'pylance', 'debugpy' },
         tool = {
@@ -23,6 +24,7 @@ return {
     },
     {
         -- lua
+        ft = "lua",
         treesitter = { 'lua' },
         tool = {
             linter = {},

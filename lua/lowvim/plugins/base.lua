@@ -40,4 +40,13 @@ return {
           lowvim.load_config("base.lsp").setup()
         end,
     },
+
+    -- formatting
+    {
+        'stevearc/conform.nvim',
+        event = { "BufReadPost", "BufNewFile" },
+        config = function()
+            lowvim.load_config("base.formatting").setup()
+        end,
+    },
 }
