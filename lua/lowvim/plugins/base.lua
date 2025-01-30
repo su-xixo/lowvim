@@ -16,20 +16,28 @@ return {
     -- mason
     {
         "williamboman/mason.nvim",
-        dependencies = {
-            {
-                "williamboman/mason-lspconfig.nvim",
-                config = function() lowvim.load_config("mason.mason_lspconfig").setup() end,
-            },
-            {
-                "WhoIsSethDaniel/mason-tool-installer.nvim",
-                config = function() lowvim.load_config("mason.mason_tool_installer").setup() end,
-            },
-        },
         config = function()
             lowvim.load_config("mason").setup()
         end,
     },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        dependencies = { "williamboman/mason.nvim" },
+        config = function() lowvim.load_config("mason.mason_lspconfig").setup() end,
+    },
+    {
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        dependencies = { "williamboman/mason.nvim" },
+        config = function() lowvim.load_config("mason.mason_tool_installer").setup() end,
+    },
     -- lsp
-    {},
+    {
+        "neovim/nvim-lspconfig",
+        name = "lspconfig",
+        cmd = { "LspInfo", "LspInstall", "LspUninstall" },
+        event = { "BufReadPost", "BufNewFile" },
+        config = function()
+          lowvim.load_config("base.lsp").setup()
+        end,
+    },
 }
