@@ -26,7 +26,7 @@ return {
         treesitter = { 'lua' },
         tool = {
             linter = {},
-            formatter = {},
+            formatter = {"stylua"},
             dap = {},
         },
         lsp = { 'lua_ls' },
