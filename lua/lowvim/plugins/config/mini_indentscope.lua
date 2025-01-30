@@ -53,5 +53,6 @@ M.init = function()
 end
 M.setup = function()
     mini_indentscope.setup(options)
+    M.init()
 end
 return M
