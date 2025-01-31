@@ -51,6 +51,11 @@ M.capabilities.textDocument.completion.completionItem = {
     },
   },
 }
+M.blink_capabilities = vim.tbl_deep_extend(
+  'force',
+  M.capabilities,
+  require('blink.cmp').get_lsp_capabilities()
+)
 
 M.setup = function()
   local lspconfig = require('lspconfig')
@@ -59,7 +64,7 @@ M.setup = function()
           lspconfig[lsp].setup({
               cmd = language.cmd,
               on_attach = M.on_attach,
-              capabilities = M.capabilities,
+              capabilities = M.blink_capabilities,
               on_init = M.on_init,
               settings = language.settings,
           })

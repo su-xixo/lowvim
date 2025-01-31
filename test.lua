@@ -258,4 +258,3 @@ local function main()
     prettier_mssg('function message', 35)
 end
 main()
-

@@ -49,4 +49,27 @@ return {
             lowvim.load_config("base.formatting").setup()
         end,
     },
+    -- linting
+    {},
+    -- auto completion
+    {
+        "saghen/blink.cmp",
+        version = '*',
+        -- build = "cargo build --release",
+        -- dependencies = {
+        --     "rafamadriz/friendly-snippets",
+        --     -- add blink.compat to dependencies
+        --     {
+        --       "saghen/blink.compat",
+        --       optional = true, -- make optional so it's only enabled if any extras need it
+        --       opts = {},
+        --       version = not vim.g.lazyvim_blink_main and "*",
+        --     },
+        --   },
+       event = "InsertEnter",
+      config = function()
+        lowvim.load_config("base.blink").setup()
+      end
+
+    },
 }

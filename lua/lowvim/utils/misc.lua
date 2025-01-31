@@ -26,4 +26,3 @@ M.prettier_mssg = function(message, max_char)
     os.execute('echo "' .. mssg_res .. '" | xclip -selection clipboard')
 end
 return M
-

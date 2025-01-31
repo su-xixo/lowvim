@@ -29,5 +29,9 @@ return {
             lowvim.load_config("mini_notify").setup()
          end,
     },
+    -- mini statusline
+    {},
+    -- mini bufferline
+    {},
     
 }
