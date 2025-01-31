@@ -1,2 +1,2 @@
-# lowvim
+cc
 neovim configuration

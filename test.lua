@@ -5,7 +5,7 @@
 --     { name = "server4", treesitter = { "javascript", "typescript" } },
 -- }
 
-local languages = require('lowvim.plugins.config.languages')
+-- local languages = require('lowvim.plugins.config.languages')
 -- local result = vim.tbl_values(vim.tbl_flatten(vim.tbl_map(
 --     function(s) return s.treesitter end,
 --     vim.tbl_filter(function(s) return s.treesitter end, languages)
@@ -26,75 +26,75 @@ local languages = require('lowvim.plugins.config.languages')
 --     vim.tbl_filter(function(s) return s.treesitter end, languages)
 -- )))))
 
-local extract = function(object, table)
-    -- object: key, table: nested table
-    -- return: flat table of values
-    local object = object or ''
-    -- print(object, table)
-    -- filters out only truthy values
-    local filter = vim.tbl_filter(function(item)
-        return item[object]
-    end, table)
-    -- map: apply function to each value
-    local map = vim.tbl_map(function(item)
-        local item = item[object] or {}
-        if vim.islist(item) then
-            return item
-        else
-            -- table.insert(item, vim.tbl_values(item))
-            return vim.tbl_values(item)
-        end
-    end, filter)
-    -- flatten: single table from nested table
-    local flatten = vim.tbl_flatten(map)
+-- local extract = function(object, table)
+--     -- object: key, table: nested table
+--     -- return: flat table of values
+--     local object = object or ''
+--     -- print(object, table)
+--     -- filters out only truthy values
+--     local filter = vim.tbl_filter(function(item)
+--         return item[object]
+--     end, table)
+--     -- map: apply function to each value
+--     local map = vim.tbl_map(function(item)
+--         local item = item[object] or {}
+--         if vim.islist(item) then
+--             return item
+--         else
+--             -- table.insert(item, vim.tbl_values(item))
+--             return vim.tbl_values(item)
+--         end
+--     end, filter)
+--     -- flatten: single table from nested table
+--     local flatten = vim.tbl_flatten(map)
 
-    -- table values
-    local values = vim.tbl_values(flatten)
-    return values
-end
+--     -- table values
+--     local values = vim.tbl_values(flatten)
+--     return values
+-- end
 
-local test_languages = {
-    {
-        ft = 'javascript',
-        treesitter = { 'javascript' },
-        tool = {
-            linter = { 'eslint' },
-            formatter = { 'prettier' },
-            dap = {},
-        },
-        lsp = { 'tsserver' },
-    },
-    {
-        ft = 'go',
-        treesitter = { 'go' },
-        tool = {
-            linter = {},
-            formatter = { 'gofmt', 'xxx' },
-            dap = {},
-        },
-        lsp = { 'gopls' },
-    },
-    {
-        ft = 'rust',
-        treesitter = { 'rust' },
-        tool = {
-            linter = {},
-            formatter = { 'zzz' },
-            dap = {},
-        },
-        lsp = { 'rust_analyzer' },
-    },
-    {
-        ft = 'rust',
-        treesitter = { 'json' },
-        tool = {
-            linter = {},
-            formatter = { 'zzzz' },
-            dap = {},
-        },
-        lsp = {},
-    },
-}
+-- local test_languages = {
+--     {
+--         ft = 'javascript',
+--         treesitter = { 'javascript' },
+--         tool = {
+--             linter = { 'eslint' },
+--             formatter = { 'prettier' },
+--             dap = {},
+--         },
+--         lsp = { 'tsserver' },
+--     },
+--     {
+--         ft = 'go',
+--         treesitter = { 'go' },
+--         tool = {
+--             linter = {},
+--             formatter = { 'gofmt', 'xxx' },
+--             dap = {},
+--         },
+--         lsp = { 'gopls' },
+--     },
+--     {
+--         ft = 'rust',
+--         treesitter = { 'rust' },
+--         tool = {
+--             linter = {},
+--             formatter = { 'zzz' },
+--             dap = {},
+--         },
+--         lsp = { 'rust_analyzer' },
+--     },
+--     {
+--         ft = 'rust',
+--         treesitter = { 'json' },
+--         tool = {
+--             linter = {},
+--             formatter = { 'zzzz' },
+--             dap = {},
+--         },
+--         lsp = {},
+--     },
+-- }
 
 -- -- extract column
 -- local extract_column = function()
@@ -121,7 +121,6 @@ local test_languages = {
 --     --     map[item.ft] = item.tool.formatter
 --     -- end
 --     -- print(vim.inspect(languages))
---     -- print(vim.inspect(filter))
 --     -- print(vim.inspect(list))
 --     return list
 -- end
@@ -197,31 +196,66 @@ local test_languages = {
 -- map("n", "<leader>e", ":NvimTreeToggle<CR>", "Toggle file explorer")
 -- map("n", "<leader>w", ":w<CR>", { silent = false, desc = "Save file" })
 
-local extract_formatter = function(lang)
-    local list = {}
-    local filter = vim.tbl_filter(function(item)
-        return item.ft and not vim.tbl_isempty(item.tool.formatter)
-    end, lang)
+-- local extract_formatter = function(lang)
+--     local list = {}
+--     local filter = vim.tbl_filter(function(item)
+--         return item.ft and not vim.tbl_isempty(item.tool.formatter)
+--     end, lang)
 
-    for _, item in ipairs(filter) do
-        if type(item) == 'string' then
-            return { item }
+--     for _, item in ipairs(filter) do
+--         if type(item) == 'string' then
+--             return { item }
+--         end
+--         if not list[item.ft] then
+--             list[item.ft] = {}
+--         end
+--         vim.list_extend(list[item.ft], item.tool.formatter)
+--     end
+
+--     return list
+-- end
+-- local extended_formatter_list = {}
+-- print(
+--     vim.inspect(
+--         vim.tbl_deep_extend(
+--             'force',
+--             extract_formatter(languages),
+--             extended_formatter_list
+--         )
+--     )
+-- )
+
+-- preetier message
+local prettier_mssg = function(message, max_char)
+    local mssg = message or 'Sample'
+    local max_char = max_char or 18
+
+    local prefix_padding = (max_char / 2) - (math.floor(#mssg / 2))
+    local suffix_padding = (max_char / 2) - (#mssg - math.floor(#mssg / 2))
+    local rep = function(c, n)
+        local str = ''
+        for i = 1, n do
+            str = str .. c
         end
-        if not list[item.ft] then
-            list[item.ft] = {}
-        end
-        vim.list_extend(list[item.ft], item.tool.formatter)
+        return str
     end
 
-    return list
-end
-local extended_formatter_list = {}
-print(
-    vim.inspect(
-        vim.tbl_deep_extend(
-            'force',
-            extract_formatter(languages),
-            extended_formatter_list
-        )
+    local res = string.format(
+        '--%s %s %s--',
+        rep(' ', prefix_padding),
+        mssg,
+        rep(' ', suffix_padding)
     )
-)
+    local mssg_res =
+        string.format('%s\n%s\n%s\n', rep('-', #res), res, rep('-', #res))
+    print(mssg_res)
+
+    os.execute('echo "' .. mssg_res .. '" | xclip -selection clipboard')
+    -- os.exit()
+end
+
+local function main()
+    prettier_mssg('function message', 35)
+end
+main()
+
