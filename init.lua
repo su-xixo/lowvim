@@ -5,6 +5,7 @@ vim.g.maplocalleader = ' '
 _G.lowvim = require('lowvim.utils')
 _G.languages = require('lowvim.plugins.config.languages')
 
+require('lowvim.core.commands')
 require('lowvim.core.options')
 require('lowvim.core.keymaps')
 require('lazy-bootstrap')
