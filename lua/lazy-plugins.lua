@@ -1,24 +1,43 @@
 require('lazy').setup({
-    { import = 'lowvim.plugins.colorscheme.kanagawa' },
-    { import = 'lowvim.plugins' },
-    -- { import = 'lowvim.plugins.disabled', enable = false },
-}, {
+    spec = {
+        { import = 'lowvim.plugins.colorscheme.catppuccin' },
+        { import = 'lowvim.plugins' },
+        -- { import = 'lowvim.plugins.disabled', enable = false },
+    },
+    install = { missing = false, colorscheme = { 'catppuccin', 'habamax' } },
+    checker = { enabled = false },
     ui = {
-        border = 'double', -- You can choose from "single", "double", "rounded", "solid", "none"
-        icons = vim.g.have_nerd_font and {} or {
-            cmd = '⌘',
-            config = '🛠',
-            event = '📅',
-            ft = '📂',
-            init = '⚙',
-            keys = '🗝',
-            plugin = '🔌',
-            runtime = '💻',
-            require = '🌙',
-            source = '📄',
-            start = '🚀',
-            task = '📌',
-            lazy = '💤 ',
+        border = 'rounded',
+        title = 'lazy.nvim',
+        title_pos = 'center', ---@type "center" | "left" | "right"
+        icons = {
+            cmd = ' ',
+            config = '',
+            debug = '● ',
+            event = ' ',
+            favorite = ' ',
+            ft = ' ',
+            init = ' ',
+            import = ' ',
+            keys = ' ',
+            lazy = '󰒲 ',
+            loaded = '●',
+            not_loaded = '○',
+            plugin = ' ',
+            runtime = ' ',
+            require = '󰢱 ',
+            source = ' ',
+            start = ' ',
+            task = '✔ ',
+            list = {
+                '●',
+                '➜',
+                '★',
+                '‒',
+            },
         },
+    },
+    change_detection = {
+        enabled = false,
     },
 })
