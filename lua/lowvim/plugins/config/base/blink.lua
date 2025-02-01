@@ -5,12 +5,14 @@ local options = {
         ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
         ['<C-e>'] = { 'hide', 'fallback' },
         ['<C-y>'] = { 'select_and_accept' },
-        ['<CR>'] = { 
+        ['<CR>'] = {
             -- function()
             --     if b
             -- end,
 
-        'accept', 'fallback' },
+            'accept',
+            'fallback',
+        },
 
         ['<Up>'] = { 'select_prev', 'fallback' },
         ['<Down>'] = { 'select_next', 'fallback' },
@@ -48,17 +50,22 @@ local options = {
             show_on_insert_on_trigger_character = true,
         },
         list = {
-            cycle = { from_bottom = true, },
+            cycle = { from_bottom = true },
             -- selection = { preselect = function(ctx) return ctx.mode ~= 'cmdline' end, auto_insert = false }
-            selection = { preselect = function() return vim.fn.mode() ~= 'c' end, auto_insert = false }
+            selection = {
+                preselect = function()
+                    return vim.fn.mode() ~= 'c'
+                end,
+                auto_insert = false,
+            },
         },
-        documentation = { 
-            auto_show = true, 
-            auto_show_delay_ms = 500 ,
+        documentation = {
+            auto_show = true,
+            auto_show_delay_ms = 500,
             treesitter_highlighting = true,
             window = {
                 border = 'rounded',
-            }
+            },
         },
         menu = {
             border = 'rounded',
@@ -75,30 +82,33 @@ local options = {
         cmdline = function()
             local type = vim.fn.getcmdtype()
             -- Search forward and backward
-            if type == '/' or type == '?' then return { 'buffer' } end
+            if type == '/' or type == '?' then
+                return { 'buffer' }
+            end
             -- Commands
-            if type == ':' or type == '@' then return { 'cmdline', 'path' } end
+            if type == ':' or type == '@' then
+                return { 'cmdline', 'path' }
+            end
             return {}
-          end,
+        end,
         min_keyword_length = 0,
     },
     signature = {
-      enabled = true,
-      trigger = {
-        -- Show the signature help automatically
         enabled = true,
-        show_on_insert = false,
-      },
-      window = {
-        border = 'rounded',
-        treesitter_highlighting = true,
-        show_documentation = true,
-      },
-    }
+        trigger = {
+            -- Show the signature help automatically
+            enabled = true,
+            show_on_insert = false,
+        },
+        window = {
+            border = 'rounded',
+            treesitter_highlighting = true,
+            show_documentation = true,
+        },
+    },
 }
 local M = {}
 M.setup = function()
     blink.setup(options)
 end
 return M
-

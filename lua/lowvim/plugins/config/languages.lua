@@ -1,14 +1,14 @@
 return {
     {
         -- python
-        ft = "python",
+        ft = 'python',
         treesitter = { 'python' },
         -- tool = { 'pylance', 'debugpy' },
         tool = {
             -- pylance is external entry need client registry to install
             linter = {},
             formatter = {},
-            dap = {'debugpy'}
+            dap = { 'debugpy' },
         },
         lsp = {},
     },
@@ -24,11 +24,11 @@ return {
     },
     {
         -- lua
-        ft = "lua",
+        ft = 'lua',
         treesitter = { 'lua' },
         tool = {
             linter = {},
-            formatter = {"stylua"},
+            formatter = { 'stylua' },
             dap = {},
         },
         lsp = { 'lua_ls' },

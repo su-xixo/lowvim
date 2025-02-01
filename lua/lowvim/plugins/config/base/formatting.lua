@@ -1,4 +1,4 @@
-local formatting = require("conform")
+local formatting = require('conform')
 local extract_formatter = function(lang)
     local list = {}
     local filter = vim.tbl_filter(function(item)
@@ -7,8 +7,8 @@ local extract_formatter = function(lang)
 
     for _, item in ipairs(filter) do
         if type(item) == 'string' then
-            return {item}
-        end 
+            return { item }
+        end
         if not list[item.ft] then
             list[item.ft] = {}
         end
@@ -25,7 +25,11 @@ local options = {
     --         return vim.tbl_deep_extend("force", extract_formatter(languages), extended_formatter_list)
     --     end
     -- },
-    formatters_by_ft = vim.tbl_deep_extend("force", extract_formatter(languages), extended_formatter_list),
+    formatters_by_ft = vim.tbl_deep_extend(
+        'force',
+        extract_formatter(languages),
+        extended_formatter_list
+    ),
     -- formatters_by_ft = {
     --     lua = {'stylua'},
     -- },
@@ -34,16 +38,15 @@ local options = {
         async = false,
         timeout_ms = 1000,
     },
-
 }
 local keymaps = function()
-    lowvim.map({"n", "v"}, "<leader>mp", function()
+    lowvim.map({ 'n', 'v' }, '<leader>mp', function()
         formatting.format({
-        lsp_fallback = true,
-        async = false,
-        timeout_ms = 1000,
-      })
-    end, "Format file or range (in visual mode)")
+            lsp_fallback = true,
+            async = false,
+            timeout_ms = 1000,
+        })
+    end, 'Format file or range (in visual mode)')
 end
 local M = {}
 M.setup = function()

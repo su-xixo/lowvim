@@ -1,4 +1,4 @@
 local plugin_options = {
-  "hide",
+    'hide',
 }
-require("fzf-lua").setup(plugin_options)
+require('fzf-lua').setup(plugin_options)

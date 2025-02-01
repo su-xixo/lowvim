@@ -1,5 +1,5 @@
-local treesitter_context = require("treesitter-context")
-local treesitter = require("nvim-treesitter.configs")
+local treesitter_context = require('treesitter-context')
+local treesitter = require('nvim-treesitter.configs')
 local context_option = {
     enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
     multiwindow = false, -- Enable multiwindow support.
@@ -8,7 +8,7 @@ local context_option = {
     line_numbers = true,
     multiline_threshold = 20, -- Maximum number of lines to show for a single context
     trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-    mode = 'cursor',  -- Line used to calculate context. Choices: 'cursor', 'topline'
+    mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
     -- Separator between context and content. Should be a single character string, like '-'.
     -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
     separator = nil,
@@ -16,7 +16,7 @@ local context_option = {
     on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
 }
 local options = {
-    ensure_installed = lowvim.extract("treesitter",languages),
+    ensure_installed = lowvim.extract('treesitter', languages),
     sync_install = false,
     auto_install = false,
     ignore_install = {},
@@ -27,13 +27,13 @@ local options = {
         enable = true,
     },
     incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "gnn", -- set to `false` to disable one of the mappings
-        node_incremental = "grn",
-        scope_incremental = "grc",
-        node_decremental = "grm",
-      },
+        enable = true,
+        keymaps = {
+            init_selection = 'gnn', -- set to `false` to disable one of the mappings
+            node_incremental = 'grn',
+            scope_incremental = 'grc',
+            node_decremental = 'grm',
+        },
     },
     textobjects = {
         select = {
@@ -103,9 +103,7 @@ local options = {
         },
     },
 }
-local keymaps = function()
-
-end
+local keymaps = function() end
 
 local M = {}
 M.setup = function()

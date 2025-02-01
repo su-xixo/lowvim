@@ -1,13 +1,13 @@
-local mason = require("mason")
+local mason = require('mason')
 
 local mason_options = {
     max_concurrent_installers = 2,
     ui = {
         border = 'rounded',
         icons = {
-          package_installed = "✓",
-          package_pending = "➜",
-          package_uninstalled = "✗",
+            package_installed = '✓',
+            package_pending = '➜',
+            package_uninstalled = '✗',
         },
     },
     registries = {
