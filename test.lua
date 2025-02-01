@@ -16,7 +16,7 @@
 -- print(vim.inspect(vim.tbl_map(
 --     function(s) return s.treesitter end,
 --     vim.tbl_filter(function(s) return s.treesitter end, languages)
--- )))
+
 -- print(vim.inspect(vim.tbl_flatten(vim.tbl_map(
 --     function(s) return s.treesitter end,
 --     vim.tbl_filter(function(s) return s.treesitter end, languages)
